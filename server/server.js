@@ -12,9 +12,16 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
    console.log('new user connected');
 
+   socket.emit('newMessage', {
+       from: "Bob",
+       text: "Hy"
+   });
+   socket.on('createMessage', (message) => {
+      console.log('message was created', message);
+   });
    socket.on('disconnect', () => {
        console.log('user was disconnected');
-   })
+   });
 });
 app.use(express.static(publicPath));
 
