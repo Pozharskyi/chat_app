@@ -13,7 +13,7 @@ io.on('connection', (socket) => {
    console.log('new user connected');
 
    socket.emit('newMessage', {
-       from: "Bob",
+       from: "Heroku",
        text: "Hy"
    });
    socket.on('createMessage', (message) => {
