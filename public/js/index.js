@@ -5,7 +5,7 @@ socket.on('connect', function () {
 
     socket.emit('createMessage', {
         from: "Artur",
-        text: "Blaaa"
+        text: "Test"
     });
 });
 
