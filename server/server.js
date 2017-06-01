@@ -10,22 +10,28 @@ const port = process.env.PORT || 3021;
 const server = http.createServer(app);
 const io = socketIO(server);
 io.on('connection', (socket) => {
-   console.log('new user connected');
+    console.log('new user connected');
 
-   socket.emit('newMessage', {
-       from: "Heroku",
-       text: "Hy"
-   });
-   socket.on('createMessage', (message) => {
-      io.emit('newMessage', {
-          from: message.from,
-          text: message.text,
-          createdAt: new Date().getTime()
-      });
-   });
-   socket.on('disconnect', () => {
-       console.log('user was disconnected');
-   });
+    socket.emit('newMessage', {
+        from: "Admin",
+        text: "Welcome to our chat"
+    });
+
+    socket.broadcast.emit('newMessage', {
+        from: "Admin",
+        text: "New user joined"
+    });
+
+    socket.on('createMessage', (message) => {
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: new Date().getTime()
+        });
+    });
+    socket.on('disconnect', () => {
+        console.log('user was disconnected');
+    });
 });
 app.use(express.static(publicPath));
 
